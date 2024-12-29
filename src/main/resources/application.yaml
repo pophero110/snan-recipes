@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: SnanRecipes
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5440/postgres?currentSchema=local
+    username: postgres
+    password: postgres
+    pool:
+      enabled: true
+      initial-size: 10
+      max-size: 10
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: debug
