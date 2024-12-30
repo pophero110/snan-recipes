@@ -22,26 +22,38 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
+	// Database
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	implementation group: 'org.postgresql', name: 'r2dbc-postgresql', version: '1.0.7.RELEASE'
+	implementation group: 'org.flywaydb', name: 'flyway-core', version: '11.1.0'
+	// flyway does not support r2dbc so this driver is needed for flyway
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.4'
+	runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.1.0'
+
+	// GraphQL
 	implementation 'org.springframework.boot:spring-boot-starter-graphql'
+	implementation 'com.graphql-java:graphql-java-extended-validation:22.0'
+	testImplementation 'org.springframework.graphql:spring-graphql-test'
+
+	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
 	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.graphql:spring-graphql-test'
+
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:r2dbc'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

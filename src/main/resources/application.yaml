@@ -1,9 +1,14 @@
 spring:
   application:
     name: SnanRecipes
+  graphql:
+    graphiql:
+      enabled: true
+
+server:
+  port: 8090
 
 ---
-
 spring:
   config:
     activate:
@@ -16,6 +21,17 @@ spring:
       enabled: true
       initial-size: 10
       max-size: 10
+  flyway:
+    placeholders:
+      dmlRole: postgres
+      ddlRole: postgres
+      schema: local
+    enabled: true
+    user: postgres
+    password: postgres
+    locations: classpath:db/migration
+    url: jdbc:postgresql://localhost:5440/postgres?currentSchema=local
+    clean-disabled: true
 logging:
   level:
     org:

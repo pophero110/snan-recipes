@@ -1,0 +1,42 @@
+directive @Min(value : Int! = 0, message : String = "graphql.validation.Min.message") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+type Mutation {
+    addRecipe(recipe: RecipeInput): Recipe
+    updateRecipe(id: ID!, recipe: RecipeInput): Recipe
+    deleteRecipe(id: ID!): Boolean
+}
+
+type Query {
+    recipes: [Recipe]
+}
+
+type Recipe {
+    id: ID!
+    title: String!
+    instruction: [InstructionStep!]!
+    ingredient: [Ingredient!]!
+}
+
+type Ingredient {
+    name: String!
+    quantity: String!
+}
+
+type InstructionStep {
+    description: String!
+}
+
+input RecipeInput {
+    title: String!
+    instruction: [InstructionStepInput!]!
+    ingredient: [IngredientInput!]!
+}
+
+input InstructionStepInput {
+    description: String!
+}
+
+input IngredientInput {
+    name: String!
+    quantity: String!
+}
